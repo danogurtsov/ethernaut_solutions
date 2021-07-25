@@ -1,7 +1,7 @@
 pragma solidity ^0.6.0;
 
 import './SafeMath.sol';
-
+ 
 contract Target {
 
   using SafeMath for uint256;
