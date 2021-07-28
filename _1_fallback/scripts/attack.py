@@ -18,13 +18,13 @@ def prepare():
     target = Target.deploy({'from': a0})
     a0.transfer(target, a0.balance() - 1*BIGNUMBER)
     REPORT.add_contract(target, 'TARGET')
-    REPORT.print()
 
     # attacker should start with little ETH balance
     balance_to_burn = a1.balance() - 1*BIGNUMBER
     burn_address = accounts[3]
     a1.transfer(burn_address,balance_to_burn)
     REPORT.print()
+    REPORT.txt_print('PRE-ATTACK STATE IS READY')
 
     return target
 
@@ -42,3 +42,4 @@ def attack(target):
     target.withdraw({'from': a1})
 
     REPORT.print()
+    REPORT.txt_print('ATTACK IS OVER')

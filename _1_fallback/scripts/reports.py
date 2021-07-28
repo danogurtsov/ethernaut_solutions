@@ -6,9 +6,6 @@ from brownie import *
 default_decimals = 18
 network_currency = 'ETH'
 
-# colors
-
-
 
 class Report (object):
     def __init__(self):
@@ -19,8 +16,6 @@ class Report (object):
         for i in range(len(accounts)):
             acc_name = 'Account {} {}..'.format(str(i),accounts[i].address[:5])
             self.default_account_names[accounts[i]] = acc_name
-
-
 
     def add_token(self, _contract):
         assert type(_contract) is network.contract.ProjectContract, 'Report.add_token(): _contract argument is not <Contract>'
@@ -86,13 +81,21 @@ class Report (object):
 
         print(table)
         print(' ')
-        print(' ')
 
+
+    def txt_print(self, txt:str):
+        color = '\033[33m'
+        print(colored('---------------------------------',color))
+        print(colored('   '+txt,color))
+        print(colored('---------------------------------',color))
 
 def colored(txt:str, colorcode):
     ENDC = '\033[0m'
     return colorcode + txt + ENDC
 
+# allow readable presentation of numbers with many decimals
+# from "10000000000" to "10 000 000 000"
+# decimals in input will also show the transformation from BIGNUMBER
 def number_presentation (num, decimals):
     num = str(int(num))
     if len(num) <= decimals:
