@@ -1,4 +1,4 @@
-# Lessons:
+# Takeaways:
 
 - smart-contracts are not secure by default
 - smart-contracts allow stupid mistakes
