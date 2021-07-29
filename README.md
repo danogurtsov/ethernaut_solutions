@@ -10,4 +10,4 @@ So many insights opened to me! My recommendation.
 
 
 # NOTES
-- In most exercises an attacker have to deploy its own contract. I avoided making these smart-contracts secure to keep code cleaner, but imagine that an attacker protects its every smart-contract with "onlyOwner" modifiers.
+- In most exercises an attacker have to deploy its own contract. I avoided making these smart-contracts secure to keep code cleaner, but imagine that an attacker protects its every smart-contract with "onlyOwner" modifiers in functions.
