@@ -1,8 +1,7 @@
 # Takeaways:
 
-- typo mistakes can dramatically change the logic and make a smart-contract vulnerable
-- (note) the way a constructor is named the same as the Contract itself is rather a depricated way of writing constructors
-
+- randomness generated from the on-chain data is predictable and can be manipulated
+- it is tough to make randomness in smart contracts
 
 # How to run:
 
