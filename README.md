@@ -7,3 +7,7 @@ So many insights opened to me! My recommendation.
 - Every folder is a Brownie project where I simulated an exercise
 - I use "attack.py" script to run everything. It is the only thing to run.
 - I use "report.py" to show the balance changes on selected timestamps
+
+
+# NOTES
+- In most exercises an attacker have to deploy its own contract. I avoided making these smart-contracts secure to keep code cleaner, but imagine that an attacker protects its every smart-contract with "onlyOwner" modifiers.
