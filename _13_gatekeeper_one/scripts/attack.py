@@ -18,12 +18,7 @@ def main():
 
 def prepare():
     # deploy smart contract
-    key = [
-    Web3.toBytes(text='lala'),
-    Web3.toBytes(text='bobo'),
-    Web3.toBytes(text='nunu')
-    ]
-    target = Privacy.deploy(key,{'from': a0})
+    target = GatekeeperOne.deploy({'from': a0})
 
     # attacker should start with little ETH balance
     balance_to_burn = a1.balance() - 1*BIGNUMBER
@@ -37,11 +32,9 @@ def prepare():
 def attack(target):
 
     # read target's storage and unlock
-    key32 = web3.eth.get_storage_at(target.address,4)
     attacker = Attacker.deploy(target,{'from':a1})
-    attacker.attack(key32,{'from':a1})
     
-    if target.locked() == False:
+    if target.entrant() == a1.address:
         REPORT.txt_print('ATTACK SUCCESSFUL')
     else:
         REPORT.txt_print('ATTACK IS NOT SUCCESSFUL')
