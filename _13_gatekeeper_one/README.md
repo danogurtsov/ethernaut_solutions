@@ -1,6 +1,6 @@
 # Takeaways:
 
-- Once again, no privacy exists in smart-contracts
+- No new takeaways
 
 # How to run:
 
