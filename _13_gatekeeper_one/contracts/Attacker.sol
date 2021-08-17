@@ -3,6 +3,7 @@ pragma solidity ^0.6.0;
 
 import './GatekeeperOne.sol';
 
+
 contract Attacker {
 
   address payable target;
