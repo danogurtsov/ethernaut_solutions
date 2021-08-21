@@ -1,6 +1,7 @@
 # Takeaways:
 
-- Once again, no privacy exists in smart-contracts
+- Combiantion of previous exercises
+- Bytes manipulation is my weakness
 
 # How to run:
 

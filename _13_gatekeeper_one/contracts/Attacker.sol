@@ -14,8 +14,9 @@ contract Attacker {
     deployer = msg.sender;
   }
 
-  function attack(bytes32 password) public {
-    GatekeeperOne(target);
+  function attack(bytes8 key, uint256 gasToPass) public {
+    GatekeeperOne t = GatekeeperOne(target);
+    t.enter{gas:gasToPass}(key);
     }
 
 }
